@@ -1,0 +1,8 @@
+{
+  "name": "Planter",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "61bce0ca"
+}
