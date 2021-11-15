@@ -1,17 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
+    <ion-title class="ion-text-center">
+      New Plant
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-searchbar 
+        placeholder="Search"
+        [(ngModel)]="searchTerm"
+        showCancelButton="always" 
+        animated>
+    </ion-searchbar>
+
+        <ion-list>
+          <ion-item href="plantinfo" *ngFor="let plant of plants | filter:searchTerm">
+            <ion-button style="color:black" fill="clear">{{plant.name}}</ion-button>
+          </ion-item>
+        </ion-list>
 
   <app-explore-container name="Tab 2 page"></app-explore-container>
 </ion-content>
