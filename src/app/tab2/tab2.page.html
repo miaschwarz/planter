@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title class="ion-text-center">
-      New Plant
+      Plants
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,7 +15,7 @@
     </ion-searchbar>
 
         <ion-list>
-          <ion-item href="plantinfo" *ngFor="let plant of plants | filter:searchTerm">
+          <ion-item href="plantinfo" *ngFor="let plant of plants.getPlants() | filter:searchTerm">
             <ion-button style="color:black" fill="clear">{{plant.name}}</ion-button>
           </ion-item>
         </ion-list>

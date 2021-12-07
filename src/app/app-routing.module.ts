@@ -8,6 +8,10 @@ const routes: Routes = [
   },
   {
     path: 'plantinfo',
+    loadChildren: () => import('./plantinfo/plantinfo.module').then( m => m.PlantinfoPageModule),
+  },
+  {
+    path: 'plantinfo/:fragment',
     loadChildren: () => import('./plantinfo/plantinfo.module').then( m => m.PlantinfoPageModule)
   },
 ];

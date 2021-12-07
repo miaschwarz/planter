@@ -1,21 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>plantinfo</ion-title>
+    <ion-title>Plant Info </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-row>
-    <div>
-      <ion-text color="success">
-        <h1>Water:</h1>
-        <h1>Placement:</h1>
-        <h1>Maintenence:</h1>
-        <h1>Origin:</h1>
-      </ion-text>
-    </div>
-    <div position="right">
-      <ion-button size="small" color="medium">Choose</ion-button>
-    </div>
+  <ion-grid class="ion-grid">
+    <ion-row>
+      <div>
+        <br>
+        <br>
+        <h1>IMAGE</h1>
+        <br>
+        <br>
+      </div>
+    </ion-row>
+    <ion-row>
+      <div>
+        <ion-text color="success">
+          <h1>Name: {{plant.name}}</h1>
+          <h1>Water:</h1>
+          <h1>Placement:</h1>
+          <h1>Maintenence:</h1>
+          <h1>Origin:</h1>
+        </ion-text>
+        <div>
+          <ion-button size="small" color="medium">Choose</ion-button>
+        </div>
+      </div>
   </ion-row>
+</ion-grid>
 </ion-content>
