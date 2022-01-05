@@ -8,13 +8,19 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./plantinfo.page.scss'],
 })
 export class PlantinfoPage implements OnInit {
+
   plant: any;
 
-  constructor(public route: ActivatedRoute, public plants: PlantsService) { }
+  constructor(public route: ActivatedRoute, public plantsService: PlantsService) { }
 
   ngOnInit() {
     let fragment = this.route.snapshot.paramMap.get('fragment');
-    this.plant = this.plants.findPlantFromFragment(fragment);
+    this.plant = this.plantsService.findPlantFromFragment(fragment);
   }
+
+  addNewPlant() {
+    this.plantsService.addNewPlant(this.plant.fragment);
+  }
+  
 
 }

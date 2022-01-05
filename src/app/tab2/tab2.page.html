@@ -15,10 +15,11 @@
     </ion-searchbar>
 
         <ion-list>
-          <ion-item href="plants/{{plant.fragment}}" *ngFor="let plant of plants.getPlants() | filter:searchTerm">
-            <ion-button style="color:black" fill="clear">{{plant.name}}</ion-button>
+          <ion-item href="plants/{{plant.fragment}}" *ngFor="let plant of plantsService.getPlants() | filter:searchTerm">
+            <ion-button style="color:grey" fill="clear">{{plant.name}}</ion-button>
           </ion-item>
         </ion-list>
+    
 
   <app-explore-container name="Tab 2 page"></app-explore-container>
 </ion-content>

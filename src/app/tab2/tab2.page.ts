@@ -11,7 +11,7 @@ export class Tab2Page {
   searchTerm: string;
   
 
-  constructor(public plants: PlantsService) {
+  constructor(public plantsService: PlantsService) {
   }
 
 }
