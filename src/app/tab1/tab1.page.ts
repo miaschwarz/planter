@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PlantsService } from '../services/plants.service';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from '../services/notifications.service';
 
 
@@ -11,7 +11,7 @@ import { NotificationsService } from '../services/notifications.service';
 })
 export class Tab1Page {
 
-  constructor(public route: ActivatedRoute, public plantsService: PlantsService, private localNotification : NotificationsService) {}
+  constructor(public route: ActivatedRoute, public plantsService: PlantsService, private localNotification: NotificationsService) { }
 
   ngOnInit() {
     let fragment = this.route.snapshot.paramMap.get('fragment');
@@ -21,8 +21,5 @@ export class Tab1Page {
     this.plantsService.removePlant(plant.fragment);
   }
 
-  sendLocalNotification () {
-    this.localNotification.showLocalNotification ( 6, " TEST NOTIFICATION " , " TITLE " );
-  }
 
 }

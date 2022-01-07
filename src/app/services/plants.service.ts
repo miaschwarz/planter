@@ -1,16 +1,38 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, Injectable, OnInit } from '@angular/core';
+import { NotificationsService } from './notifications.service';
 
 @Injectable()
 export class PlantsService {
+
+  static initialized = false;
 
   // tag = "add-plant";
   myPlants = new Array();
   
   plants  = [
     {
+      "name": "African Violet",
+      "water": "DO NOT overwater, only when soil is dry",
+      "placement": "Bright indirect light",
+      "maintenence": "Fertilze every few weeks",
+      "origin": "Eastern Africa",
+      "photo": "assets/imgs/africanviolet.jpeg",
+      "notif": {
+        title: "My violet needs whater",
+        incr: 1 * 60 * 60 * 1000
+      }
+    },
+    {
+      "name": "Bird of Paradise",
+      "water": "Soil should be kept moist",
+      "placement": "Bright indirect light",
+      "maintenence": "Fertilze every few weeks in the warmer months, monthly in winter",
+      "origin": "South Africa",
+      "photo": "assets/imgs/birdofparadise.jpg"
+    },
+    {
       "name": "Croton",
-      "fragment": "",
       "water": "When soil is dry (about weekly)",
       "placement": "Sunlight",
       "maintenence": "Mist leaves once per week",
@@ -24,6 +46,15 @@ export class PlantsService {
       "maintenence": "Dust and remove dead leaves",
       "origin": "Madagascar",
       "photo": "assets/imgs/DracaendaMarginata.jpeg"
+    },
+    {
+      "name": "Flamingo Flower",
+      "fragment": "",
+      "water": "Water every few days",
+      "placement": "Bright indirect light",
+      "origin": "Central and South America",
+      "maintenence": "Repot yearly",
+      "photo": "assets/imgs/flamingoflowerplant.jpeg"
     },
     {
       "name": "Golden Pothos",
@@ -73,7 +104,7 @@ export class PlantsService {
     ,
     {
       "name": "Peace Lily",
-      "water": "When soil is cry, once a week",
+      "water": "When soil is dry, ~once a week",
       "placement": "Birght spot out of direct sun",
       "maintenence": "Dust and trim dead leaves",
       "origin": "Colombia and Venezuela",
@@ -98,7 +129,7 @@ export class PlantsService {
     }
   ];
 
-  constructor() { 
+  constructor(private notificationsService: NotificationsService) { 
     this.formatFragments();
     let x = localStorage.getItem('my-plants');
     if (x) {
@@ -111,6 +142,23 @@ export class PlantsService {
         }
       }
     }
+  }
+
+  scheduleInitial() {
+    if(!PlantsService.initialized) {
+      PlantsService.initialized = true;
+      //this.schedule();
+      for (let plant of this.myPlants) {
+        this.notificationsService.schedule(plant);
+      }
+    }
+  }
+
+  async schedule() {
+    await this.notificationsService.cancel();
+    // for (let plant of this.myPlants) {
+    //   this.notificationsService.schedule(plant);
+    // }
   }
 
   formatFragments() {
@@ -144,6 +192,9 @@ export class PlantsService {
     localStorage.setItem('my-plants', JSON.stringify(fragments));
 
     this.myPlants.push(this.findPlantFromFragment(fragment));
+
+    this.schedule();
+
   }
 
   public removePlant(fragment: string) {
