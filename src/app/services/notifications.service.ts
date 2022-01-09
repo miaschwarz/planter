@@ -25,6 +25,16 @@ export class NotificationsService {
 
   async schedule(plant: any) {
 
+    const weeklyTest: Schedule = {
+      repeats: true,
+      every: 'minute',
+    };
+
+    const hourlyTest: Schedule = {
+      repeats: true,
+      every: 'hour',
+    };
+
     const daily: Schedule = {
       repeats: true,
       every: 'day',
@@ -52,13 +62,16 @@ export class NotificationsService {
       }
     };
 
-    let sch = weekly;
+    let sch = weeklyTest;
     if(plant.schedule == 'daily') {
-      sch = daily;
+      sch = hourlyTest;
     }
-    if(plant.schedule == 'monthly') {
-      sch = monthly;
-    }
+    // if(plant.schedule == 'daily') {
+    //   sch = daily;
+    // }
+    // if(plant.schedule == 'monthly') {
+    //   sch = monthly;
+    // }
 
     if (this.ask) {
       this.ask = false;
@@ -83,9 +96,14 @@ export class NotificationsService {
   }
 
   async cancel() {
-    let pending = await LocalNotifications.getPending();
-    await LocalNotifications.cancel(pending);
-
+    try {
+      let pending = await LocalNotifications.getPending();
+      if (pending != null && pending.notifications.length > 0) {
+        await LocalNotifications.cancel(pending);
+      } 
+    } catch {
+      console.log('ignoring cancel error');
+    }   
   }
 
 }
