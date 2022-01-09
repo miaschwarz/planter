@@ -16,13 +16,10 @@
   <section>
     <div class="row">
       <div>
-        <!-- <ion-button size="small" color="medium"><ion-icon name="albums-outline"></ion-icon>
-        </ion-button>
-        <ion-button size="small" color="medium"><ion-icon name="menu-outline"></ion-icon></ion-button> -->
         <ion-list>
           <ion-item-sliding *ngFor="let plant of plantsService.myPlants">
             <ion-item>
-              <ion-button style="color:black" fill="clear">{{plant.name}}</ion-button>
+              <ion-button style="color:black" fill="clear" (click)="navTo(plant)">{{plant.name}}</ion-button>
             </ion-item>
           <ion-item-options>
             <button color="danger" (click)="removePlant(plant)">Delete</button>

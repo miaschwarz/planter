@@ -7,6 +7,9 @@
 
 <ion-content>
   <ion-grid class="ion-grid">
+    <div>
+      <ion-button class="backButton" size="small" color="Light" (click)="goBack()">Back</ion-button>
+    </div>
     <ion-row>
       <div>
         <h3 id="text">{{plant.name}}</h3>
@@ -26,9 +29,10 @@
             {{plant.origin}}</h4>
         </ion-text>
         <div class="button">
-          <ion-button href="/tab1" size="medium" color="success" (click)="addNewPlant()">Choose</ion-button>
+          <ion-button size="medium" color="success" (click)="addNewPlant()">Choose</ion-button>
         </div>
       </div>
   </ion-row>
+
 </ion-grid>
 </ion-content>

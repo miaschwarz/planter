@@ -5,23 +5,18 @@ import { NotificationsService } from './notifications.service';
 @Injectable()
 export class PlantsService {
 
-  static initialized = false;
-
   // tag = "add-plant";
   myPlants = new Array();
-  
-  plants  = [
+
+  plants = [
     {
       "name": "African Violet",
+      "fragment": "",
       "water": "DO NOT overwater, only when soil is dry",
       "placement": "Bright indirect light",
       "maintenence": "Fertilze every few weeks",
       "origin": "Eastern Africa",
       "photo": "assets/imgs/africanviolet.jpeg",
-      "notif": {
-        title: "My violet needs whater",
-        incr: 1 * 60 * 60 * 1000
-      }
     },
     {
       "name": "Bird of Paradise",
@@ -29,7 +24,17 @@ export class PlantsService {
       "placement": "Bright indirect light",
       "maintenence": "Fertilze every few weeks in the warmer months, monthly in winter",
       "origin": "South Africa",
-      "photo": "assets/imgs/birdofparadise.jpg"
+      "photo": "assets/imgs/birdofparadise.jpg",
+      "schedule": "monthly"
+    },
+    {
+      "name": "Cactus",
+      "water": "Soak soil when dry, about monthly",
+      "placement": "Mild natural light",
+      "maintenence": "Fertilze every few months",
+      "origin": "Mexico and the Americas",
+      "photo": "assets/imgs/cactus.jpeg",
+      "schedule": "monthly"
     },
     {
       "name": "Croton",
@@ -49,12 +54,12 @@ export class PlantsService {
     },
     {
       "name": "Flamingo Flower",
-      "fragment": "",
       "water": "Water every few days",
       "placement": "Bright indirect light",
       "origin": "Central and South America",
       "maintenence": "Repot yearly",
-      "photo": "assets/imgs/flamingoflowerplant.jpeg"
+      "photo": "assets/imgs/flamingoflowerplant.jpeg",
+      "schedule": "daily"
     },
     {
       "name": "Golden Pothos",
@@ -109,15 +114,22 @@ export class PlantsService {
       "maintenence": "Dust and trim dead leaves",
       "origin": "Colombia and Venezuela",
       "photo": "assets/imgs/peacelily.jpeg"
-    }
-    ,
+    },
+    {
+      "name": "Rosemary",
+      "water": "Keep soil moist",
+      "placement": "Full sun",
+      "maintenence": "Cut back every year",
+      "origin": "the Mediterranean",
+      "photo": "assets/imgs/rosemary.jpeg",
+    },
     {
       "name": "Snake Plant",
       "water": "Every two weeks, during winter once a month",
       "placement": "Indirect light",
-      "maintenence": "Fertilize during growing seasone",
+      "maintenence": "Fertilize during growing season",
       "origin": "Africa",
-      "photo": "assets/imgs/snakeplant.jpeg"
+      "photo": "assets/imgs/snakeplant.jpeg",
     },
     {
       "name": "Spider Plant",
@@ -126,10 +138,18 @@ export class PlantsService {
       "maintenence": "In winter allow soil to dry more often",
       "origin": "South Africa",
       "photo": "assets/imgs/spiderplant.jpg"
-    }
+    },
+    {
+      "name": "Sunflower",
+      "water": "Check often and keep soil moist, ~weekly",
+      "placement": "Bright light",
+      "maintenence": "Fertilize during growing season",
+      "origin": "North America",
+      "photo": "assets/imgs/sunflower.jpeg",
+    },
   ];
 
-  constructor(private notificationsService: NotificationsService) { 
+  constructor(private notificationsService: NotificationsService) {
     this.formatFragments();
     let x = localStorage.getItem('my-plants');
     if (x) {
@@ -145,20 +165,20 @@ export class PlantsService {
   }
 
   scheduleInitial() {
-    if(!PlantsService.initialized) {
-      PlantsService.initialized = true;
-      //this.schedule();
-      for (let plant of this.myPlants) {
-        this.notificationsService.schedule(plant);
-      }
-    }
+    this.scheduleInitialImpl();
+  }
+
+  async scheduleInitialImpl() {
+    await this.notificationsService.scheduleAll(this.myPlants);
   }
 
   async schedule() {
     await this.notificationsService.cancel();
-    // for (let plant of this.myPlants) {
-    //   this.notificationsService.schedule(plant);
-    // }
+    await this.notificationsService.scheduleAll(this.myPlants);    
+  }
+
+  async cancel() {
+    await this.notificationsService.cancel();
   }
 
   formatFragments() {
@@ -166,7 +186,7 @@ export class PlantsService {
       plant.fragment = plant.name.toLowerCase();
       plant.fragment = plant.fragment.replace(" ", "-");
       plant.fragment = plant.fragment.replace(" ", "-");
-    } 
+    }
   }
 
   getPlants() {
@@ -205,7 +225,7 @@ export class PlantsService {
       }
     }
     localStorage.setItem('my-plants', JSON.stringify(fragment));
-      
+    this.schedule();
   }
 
 }

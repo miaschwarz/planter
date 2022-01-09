@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { PlantsService } from '../services/plants.service';
 
 @Component({
@@ -9,9 +10,14 @@ import { PlantsService } from '../services/plants.service';
 export class Tab2Page {
 
   searchTerm: string;
-  
 
-  constructor(public plantsService: PlantsService) {
+
+  constructor(public router: Router, public plantsService: PlantsService) {
+  }
+
+  navTo(plant: any) {
+    console.log(plant.fragment);
+    this.router.navigateByUrl(`plants/${plant.fragment}`);
   }
 
 }

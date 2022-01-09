@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlantsService } from '../services/plants.service';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-plantinfo',
@@ -11,7 +11,7 @@ export class PlantinfoPage implements OnInit {
 
   plant: any;
 
-  constructor(public route: ActivatedRoute, public plantsService: PlantsService) { }
+  constructor(public router: Router, public route: ActivatedRoute, public plantsService: PlantsService) { }
 
   ngOnInit() {
     let fragment = this.route.snapshot.paramMap.get('fragment');
@@ -20,7 +20,12 @@ export class PlantinfoPage implements OnInit {
 
   addNewPlant() {
     this.plantsService.addNewPlant(this.plant.fragment);
+    this.router.navigateByUrl(`tab1`);
   }
-  
+
+  goBack() {
+    this.router.navigateByUrl(`plants`);
+  }
+
 
 }
