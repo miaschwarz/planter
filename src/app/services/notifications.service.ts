@@ -25,15 +25,16 @@ export class NotificationsService {
 
   async schedule(plant: any) {
 
-    const weeklyTest: Schedule = {
-      repeats: true,
-      every: 'minute',
-    };
+    //TESTS
+    // const weeklyTest: Schedule = {
+    //   repeats: true,
+    //   every: 'minute',
+    // };
 
-    const hourlyTest: Schedule = {
-      repeats: true,
-      every: 'hour',
-    };
+    // const hourlyTest: Schedule = {
+    //   repeats: true,
+    //   every: 'hour',
+    // };
 
     const daily: Schedule = {
       repeats: true,
@@ -62,16 +63,17 @@ export class NotificationsService {
       }
     };
 
-    let sch = weeklyTest;
+    let sch = weekly;
+    // TEST
+    // if(plant.schedule == 'daily') {}
+    //   sch = hourlyTest;
+    // }
     if(plant.schedule == 'daily') {
-      sch = hourlyTest;
+      sch = daily;
     }
-    // if(plant.schedule == 'daily') {
-    //   sch = daily;
-    // }
-    // if(plant.schedule == 'monthly') {
-    //   sch = monthly;
-    // }
+    if(plant.schedule == 'monthly') {
+      sch = monthly;
+    }
 
     if (this.ask) {
       this.ask = false;
